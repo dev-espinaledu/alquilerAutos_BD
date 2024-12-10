@@ -13,7 +13,7 @@ exports.autosDisponibles = async (req, res) => {
 
 exports.registrarAuto = async (req, res) => {
     //console.log("Datos recibidos en el backend:", req.body); // Log para verificar los datos  
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
     const { marca, modelo, imagen, valorAlquiler, anio, disponibilidad } = req.body; 
     try {
         // Si 'disponibilidad' está presente en el cuerpo, úsalo, de lo contrario, omítelo

@@ -3,20 +3,22 @@ const { Cliente } = require('../models');
 
  //login
 exports.loginCliente = async(req, res)=>{
+  const {correo, password}= req.body;
   try{
-    const {correo, password}= req.body;
-    const cliente = await Cliente.finOne({where:{correo}});
+    const cliente = await Cliente.findOne({ where: {correo} });
+    console.log(cliente)
     if (!cliente ){
-      return res.status(404).json({mjs:"Cliente no encontrado"})
+      return res.status(404).json({mensaje:"Cliente no encontrado"})
     }
     const passwordValido = await bcrypt.compare(password, cliente.password);
 
     if (!passwordValido){
-      return res.status(401).json({mjs:"Contraseña incorrecta"})
+      return res.status(401).json({mensaje:"Contraseña incorrecta"})
     }
-  }catch(error){
-    console.error("Error ak iniciara sesion:", error);
-    res.status(500).json({msj:"Error al iniciar sesion", error:error.message})
+    res.status(200).json({mensaje: "Inicio de sesión exitoso", cliente});
+  } catch(error){
+    console.error("Error al iniciar sesión:", error);
+    res.status(500).json({mensaje:"Error al iniciar sesion", error:error.message})
   }
 };
   ////////////////////////////
